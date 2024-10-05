@@ -10,7 +10,12 @@
     <!-- Google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <!-- Fontawesome icon cdn -->
+    <script src="https://kit.fontawesome.com/0dd3c61629.js" crossorigin="anonymous"></script>
 
     <!-- Tailwind + daisyUI cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.12/dist/full.min.css" rel="stylesheet" type="text/css" />
@@ -34,9 +39,61 @@
         }
     </script>
 </head>
+
 <body class="font-lato">
 
+    <!-- Header section start -->
+    <header class="w-11/12 sm:w-10/12 mx-auto">
+        <!-- Navbar section start -->
+        <div class="navbar py-5">
+            <!-- left logo -->
+            <div class="navbar-start items-center">
+                <div class="dropdown">
+                    <div tabindex="0" role="button" class="btn btn-ghost lg:hidden items-center">
+                        <i class="text-xl fa-solid fa-bars"></i>
+                    </div>
+                    <ul tabindex="0"
+                        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                        <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                                href="#">Home</a></li>
+                        <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                                href="#">Shop</a></li>
+                        <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                                href="#">Contact</a></li>
+                    </ul>
+                </div>
+
+                <a class="flex justify-between items-center gap-2" href="index.html">
+                    <img src="./images/logo.webp" alt="Logo">
+                    <span class="text-3xl font-extrabold text-secondary">Peddy</span>
+                </a>
+            </div>
+
+            <!-- middle menu -->
+            <div class="navbar-center hidden lg:flex">
+                <ul class="flex space-x-5">
+                    <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                            href="#">Home</a></li>
+                    <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                            href="#">Shop</a></li>
+                    <li class="text-secondary hover:text-primary transition-colors duration-100 ease-in-out"><a
+                            href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- right button -->
+            <div class="navbar-end">
+                <a href="#">
+                    <i
+                        class="fa-regular fa-user border rounded-full p-3 sm:p-4 hover:border-primary/50 hover:text-primary transition-colors duration-100 ease-in-out"></i>
+                </a>
+            </div>
+        </div>
+        <!-- Navbar section end -->
+    </header>
+    <!-- Header section end -->
 
 
 </body>
+
 </html>
