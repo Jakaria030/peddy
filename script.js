@@ -66,7 +66,12 @@ const displayAllPets = (data) => {
     // console.log(data.length);
     if(data.length){
         data.forEach(pet => {
-            // console.log(pet);
+            const petImage = pet.image;
+            const petBreed = pet.breed ? pet.breed : "Not available";
+            const petDOB = pet.date_of_birth ? pet.date_of_birth : "Not available";
+            const petGender = pet.gender ? pet.gender : "Not availbale";
+            const petPrice = pet.price ? `${pet.price}$` : "Not available";
+
             petsCardContainer.innerHTML += `
             <div class="card card-compact border border-secondary/10 rounded-lg p-5 space-y-5">
                 <figure>
@@ -77,23 +82,23 @@ const displayAllPets = (data) => {
                     <h2 class="text-2xl font-bold text-secondary font-inter">${pet.pet_name}</h2>
                     <p class="text-secondary/70">
                         <i class="fa-solid fa-border-all mr-3"></i>
-                        <span>Breed: <span>${pet.breed}</span></span>
+                        <span>Breed: ${petBreed}</span>
                     </p>
                     <p class="text-secondary/70">
                         <i class="fa-regular fa-calendar mr-3"></i>
-                        <span>Birth: <span>${pet.date_of_birth}</span></span>
+                        <span>Birth: ${petDOB}</span>
                     </p>
                     <p class="text-secondary/70">
                         <i class="fa-solid fa-venus mr-3"></i>
-                        <span>Gender: <span>${pet.gender}</span></span>
+                        <span>Gender: ${petGender}</span>
                     </p>
                     <p class="text-secondary/70">
                         <i class="fa-solid fa-money-check-dollar mr-2"></i>
-                        <span>Price: <span>${pet.price}</span>$</span>
+                        <span>Price: ${petPrice}</span>
                     </p>
                 </div>
                 <div class="flex flex-wrap items-center justify-between gap-2">
-                    <button
+                    <button onclick="addPetImage('${petImage}')"
                         class="px-3 sm:px-4 py-2 border rounded-md hover:bg-primary hover:text-white transition duration-100 ease-in-out"><i
                             class="fa-solid fa-thumbs-up"></i></button>
                     <button
@@ -108,6 +113,15 @@ const displayAllPets = (data) => {
         noAvaialableData();
     }
     
+};
+
+// Add Pet Image To The Right Side
+const addPetImage = (image) => {
+    const imageContainer = document.getElementById("image-container");
+    
+    imageContainer.innerHTML += `
+    <img class="round-lg border rounded-lg p-2" src=${image}>
+    `;
 };
 
 // Show no available data
@@ -147,7 +161,7 @@ window.onload = () => {
     // Call loadAllCategories function
     loadAllCategories();
     
-    // Show loader
+    // Show Loader
     showLoader();
     
     setTimeout(() => {
