@@ -15,7 +15,7 @@ const loadSinglePetDetails = (petId) => {
         .then(res => res.json())
         .then(data => displaySinglePetDetails(data.petData))
         .catch(err => console.log("Server is busy."));
-}
+} 
 
 // Display All Category
 const displayALlCategories = (data) => {
@@ -26,7 +26,7 @@ const displayALlCategories = (data) => {
     data.forEach(categoryItem => {
         // console.log(categoryItem);
         categoryButtonContainer.innerHTML += `
-        <button onclick="displayByCategory('${categoryItem.category}')" class="flex items-center justify-center space-x-3 border rounded-xl p-3 sm:p-5 lg:p-8">
+        <button id="${categoryItem.category}" onclick="loadByCategory('${categoryItem.category}')" class="flex items-center justify-center space-x-3 border rounded-xl p-3 sm:p-5 lg:p-7">
             <img src=${categoryItem.category_icon}">
             <h3 class="text-2xl font-bold text-secondary font-inter">${categoryItem.category}</h3>
         </button>
@@ -34,16 +34,21 @@ const displayALlCategories = (data) => {
     });
 };
 
-// Display By Category
-const displayByCategory = (categoryName) => {
-    // console.log(categoryName);
-    loadByCategory(categoryName);
-};
-
 // Load By Category
 const loadByCategory = (categoryName) =>{
-    const url = `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`;
+    // console.log(categoryName);
+    // active button class remove
+    const categoryButtonContainer = document.querySelectorAll("#category-button-container button");
+    categoryButtonContainer.forEach(categoryButton => {
+        categoryButton.className = "flex items-center justify-center space-x-3 border rounded-xl p-3 sm:p-5 lg:p-7";
+    });
 
+    // set active button
+    const categoryButton = document.getElementById(categoryName);
+    categoryButton.className = "flex items-center justify-center space-x-3 border border-primary bg-primary/10 rounded-full p-3 sm:p-5 lg:p-7";
+
+    // fetch url
+    const url = `https://openapi.programming-hero.com/api/peddy/category/${categoryName}`;
     // console.log(url);
     
     fetch(url)
@@ -57,7 +62,7 @@ const loadByCategory = (categoryName) =>{
             }, 2000);
         })
         .catch(err => {
-            console.log("Server is busy.");
+            console.log("Server is busy." + err);
             hideLoader();
         });
 };
