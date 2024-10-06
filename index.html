@@ -152,22 +152,43 @@
 
             <!-- cards -->
             <div class="pt-5 lg:pt-10 grid grid-cols-1 lg:grid-cols-4 gap-5">
-                <div id="pets-card-container" class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 border rounded-lg p-2 md:p-5">
+                <div id="pets-card-container"
+                    class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 border rounded-lg p-2 md:p-5">
+
                     <!-- loader show here by DOM -->
                     <!-- data show here from API call -->
                     <!-- no information available also show here -->
-                    
+
                 </div>
 
                 <div class="lg:col-span-1">
-                    <div id="image-container" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3 p-2 md:p-5 border rounded-lg max-h-screen overflow-y-auto">
-                        
+                    <div id="image-container"
+                        class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 gap-3 p-2 md:p-5 border rounded-lg max-h-screen overflow-y-auto">
+
                         <!-- image show here when thumb button click -->
                     </div>
                 </div>
             </div>
         </section>
         <!-- Post section end -->
+
+        <!-- Congrates Modal -->
+        <!-- <button class="btn" onclick="congrates_modal.showModal()">open modal</button> -->
+        <dialog id="congrates_modal" class="modal modal-middle">
+            <div class="modal-box p-10">
+                <div class="text-center space-y-3">
+                    <i class="fa-solid fa-handshake text-4xl text-secondary"></i>
+                    <h3 class="text-4xl font-extrabold text-secondary">Congrates!</h3>
+                    <p class="text-lg text-secondary/70">Adoption Process is Start For Your Pet</p>
+                    <h1 id="counter" class="text-5xl font-extrabold text-secondary">3</h1>
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <button id="close-button" class="btn hidden">Close</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </main>
     <!-- Main section end -->
 

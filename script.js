@@ -66,6 +66,7 @@ const displayAllPets = (data) => {
     // console.log(data.length);
     if(data.length){
         data.forEach(pet => {
+            const petId = pet.petId; 
             const petImage = pet.image;
             const petBreed = pet.breed ? pet.breed : "Not available";
             const petDOB = pet.date_of_birth ? pet.date_of_birth : "Not available";
@@ -101,7 +102,7 @@ const displayAllPets = (data) => {
                     <button onclick="addPetImage('${petImage}')"
                         class="px-3 sm:px-4 py-2 border rounded-md hover:bg-primary hover:text-white transition duration-100 ease-in-out"><i
                             class="fa-solid fa-thumbs-up"></i></button>
-                    <button
+                    <button id="adoption-btn-id-${petId}" onclick="adoptionProcessRunning(this)"
                         class="px-3 sm:px-4 py-2 border rounded-md text-primary font-bold sm:text-lg hover:bg-primary hover:text-white transition duration-100 ease-in-out">Adopt</button>
                     <button
                         class="px-3 sm:px-4 py-2 border rounded-md text-primary font-bold sm:text-lg hover:bg-primary hover:text-white transition duration-100 ease-in-out">Details</button>
@@ -122,6 +123,28 @@ const addPetImage = (image) => {
     imageContainer.innerHTML += `
     <img class="round-lg border rounded-lg p-2" src=${image}>
     `;
+};
+
+// Adoption Proccess Running
+const adoptionProcessRunning = (petAdoptionButtonId) =>{
+    const congrates_modal = document.getElementById("congrates_modal");
+    const adoptionButton = document.getElementById(petAdoptionButtonId.id);
+    adoptionButton.onclick = congrates_modal.showModal();
+    
+    const intervalId = setInterval(() => {
+        const counter = document.getElementById("counter");
+        let counterValue = parseInt(counter.innerText);
+
+        counterValue--;
+        counter.innerText = counterValue;
+        if(counterValue <= 0){
+            clearInterval(intervalId);
+            document.getElementById("close-button").click();
+            adoptionButton.className = "px-3 sm:px-4 py-2 border rounded-md  font-bold sm:text-lg bg-stone-400 opacity-50 cursor-not-allowed";
+            counter.innerText = 3;
+        }
+    }, 1000);
+    
 };
 
 // Show no available data
