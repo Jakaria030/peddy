@@ -1,4 +1,5 @@
 const petsCardContainer = document.getElementById("pets-card-container");
+let arrayForSort = [];
 
 // Load All Categories
 const loadAllCategories = () => {
@@ -58,6 +59,11 @@ const loadByCategory = (categoryName) =>{
             showLoader();
             setTimeout(() => {
                 hideLoader();
+                
+                // assign categories data into global array
+                arrayForSort = [];
+                arrayForSort = pets.data;
+
                 displayAllPets(pets.data);
             }, 2000);
         })
@@ -79,6 +85,7 @@ const loadAllPets = () => {
 const displayAllPets = (data) => {
     // console.log(data.length);
     if(data.length){
+        arrayForSort = data;
         data.forEach(pet => {
             const petId = pet.petId;
             const petName = pet.pet_name;
@@ -156,6 +163,7 @@ const adoptionProcessRunning = (petAdoptionButtonId) =>{
             clearInterval(intervalId);
             document.getElementById("close-button").click();
             adoptionButton.className = "px-3 sm:px-4 py-2 border rounded-md  font-bold sm:text-lg bg-stone-400 opacity-50 cursor-not-allowed";
+            adoptionButton.innerText = "Adopted";
             counter.innerText = 3;
         }
     }, 1000);
@@ -253,6 +261,21 @@ const hideLoader = () => {
     petsCardContainer.removeChild(loader);
 };
 
+// Sorting in descending order
+document.getElementById("sorting-button").addEventListener("click", () => {
+    // console.log(arrayForSort);
+
+    arrayForSort.sort((petA, petB) => {
+        let priceA = petA.price !== null && petA.price !== undefined ? petA.price : -Infinity;
+        let priceB = petB.price !== null && petB.price !== undefined ? petB.price : -Infinity;
+
+        return priceB - priceA;
+    });
+
+    // console.log(arrayForSort);
+    petsCardContainer.innerHTML = "";
+    displayAllPets(arrayForSort);
+});
 
 window.onload = () => {
 
