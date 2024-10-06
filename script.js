@@ -8,6 +8,15 @@ const loadAllCategories = () => {
         .catch(err => console.log("Server is busy."))
 };
 
+// Load Signle Pet Details
+const loadSinglePetDetails = (petId) => {
+    // console.log(petId);
+    fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
+        .then(res => res.json())
+        .then(data => displaySinglePetDetails(data.petData))
+        .catch(err => console.log("Server is busy."));
+}
+
 // Display All Category
 const displayALlCategories = (data) => {
     // console.log(data);
@@ -66,7 +75,8 @@ const displayAllPets = (data) => {
     // console.log(data.length);
     if(data.length){
         data.forEach(pet => {
-            const petId = pet.petId; 
+            const petId = pet.petId;
+            const petName = pet.pet_name;
             const petImage = pet.image;
             const petBreed = pet.breed ? pet.breed : "Not available";
             const petDOB = pet.date_of_birth ? pet.date_of_birth : "Not available";
@@ -77,10 +87,10 @@ const displayAllPets = (data) => {
             <div class="card card-compact border border-secondary/10 rounded-lg p-5 space-y-5">
                 <figure>
                     <img class="w-full rounded-lg"
-                        src=${pet.image} />
+                        src=${petImage} />
                 </figure>
                 <div class="space-y-1">
-                    <h2 class="text-2xl font-bold text-secondary font-inter">${pet.pet_name}</h2>
+                    <h2 class="text-2xl font-bold text-secondary font-inter">${petName}</h2>
                     <p class="text-secondary/70">
                         <i class="fa-solid fa-border-all mr-3"></i>
                         <span>Breed: ${petBreed}</span>
@@ -104,7 +114,7 @@ const displayAllPets = (data) => {
                             class="fa-solid fa-thumbs-up"></i></button>
                     <button id="adoption-btn-id-${petId}" onclick="adoptionProcessRunning(this)"
                         class="px-3 sm:px-4 py-2 border rounded-md text-primary font-bold sm:text-lg hover:bg-primary hover:text-white transition duration-100 ease-in-out">Adopt</button>
-                    <button
+                    <button onclick="loadSinglePetDetails(${petId})"
                         class="px-3 sm:px-4 py-2 border rounded-md text-primary font-bold sm:text-lg hover:bg-primary hover:text-white transition duration-100 ease-in-out">Details</button>
                 </div>
             </div>
@@ -145,6 +155,66 @@ const adoptionProcessRunning = (petAdoptionButtonId) =>{
         }
     }, 1000);
     
+};
+
+// Show Details Of Single Pet
+const displaySinglePetDetails = (pet) => {
+    // console.log(pet);
+    const petDetailsContainer = document.getElementById("pet-details-container");
+    petDetailsContainer.innerHTML = "";
+
+    const petImage = pet.image;
+    const petName = pet.pet_name;
+    const petBreed = pet.breed ? pet.breed : "Not available";
+    const petDOB = pet.date_of_birth ? pet.date_of_birth : "Not available";
+    const petGender = pet.gender ? pet.gender : "Not availbale";
+    const petPrice = pet.price ? `${pet.price}$` : "Not available";
+    const petIsVaccinated = pet.vaccinated_status ? pet.vaccinated_status : "Not available";
+    const petDetails = pet.pet_details;
+    
+    petDetailsContainer.innerHTML = `
+    <div class="space-y-4">
+        <img class="w-full h-60 sm:h-80 rounded-lg" src=${petImage}>
+
+        <h2 class="text-2xl font-bold text-secondary font-inter">${petName}</h2>
+        <div class="space-y-1 grid grid-cols-1 sm:grid-cols-2">
+            <p class="text-secondary/70">
+                <i class="fa-solid fa-border-all mr-3"></i>
+                <span>Breed: ${petBreed}</span>
+            </p>
+            <p class="text-secondary/70">
+                <i class="fa-regular fa-calendar mr-3"></i>
+                <span>Birth: ${petDOB}</span>
+            </p>
+            <p class="text-secondary/70">
+                <i class="fa-solid fa-venus mr-3"></i>
+                <span>Gender: ${petGender}</span>
+            </p>
+            <p class="text-secondary/70">
+                <i class="fa-solid fa-money-check-dollar mr-2"></i>
+                <span>Price: ${petPrice}</span>
+            </p>
+            <p class="text-secondary/70">
+                <i class="fa-solid fa-syringe mr-2"></i>
+                <span>Vaccinated Status: ${petIsVaccinated}</span>
+            </p>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-secondary font-inter font-semibold">Details Information</h3>
+            <p class="text-secondary/70 text-justify font-inter">${petDetails}</p>
+        </div>
+    </div>
+
+    <div class="pt-4">
+        <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn w-full bg-primary/20 text-primary text-lg font-bold">Close</button>
+        </form>
+    </div>
+    `;
+    
+    document.getElementById("pet_details_modal").showModal();
 };
 
 // Show no available data
